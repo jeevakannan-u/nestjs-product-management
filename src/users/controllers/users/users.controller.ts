@@ -20,7 +20,7 @@ import { UsersService } from '../../services/users/users.service';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @UseGuards(AuthGuard('jwt'))
+ 
   @Get()
   getUsers() {
     return this.userService.findUsers();
@@ -33,7 +33,7 @@ export class UsersController {
     return user;
   }
 
-  @UseGuards(AuthGuard('jwt'))
+ 
   @Put(':id')
   async updateUserById(
     @Param('id', ParseIntPipe) id: number,
@@ -42,13 +42,13 @@ export class UsersController {
     await this.userService.updateUser(id, updateUserDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+ 
   @Delete(':id')
   async deleteUserById(@Param('id', ParseIntPipe) id: number) {
     await this.userService.deleteUser(id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+ 
   @Post(':id/profiles')
   createUserProfile(
     @Param('id', ParseIntPipe) id: number,
@@ -57,7 +57,7 @@ export class UsersController {
     return this.userService.createUserProfile(id, createUserProfileDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+ 
   @Post(':id/products')
   createUserProduct(
     @Param('id', ParseIntPipe) id: number,

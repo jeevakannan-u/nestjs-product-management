@@ -13,8 +13,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         })
     }
 
-    async validate(username: string, password: string):Promise<any> {
-        // console.log(username,password);
-        return 'suceess';
+    async validate(userObject, cb):Promise<any> {
+        // check if user is active or not
+        // other user level checks from Payload
+        let isValid =false;
+        if(Number(userObject.user))
+            isValid = true;
+        return isValid;
     }
 }
