@@ -27,8 +27,10 @@ export class JwtMiddleware implements NestMiddleware {
       const { user,sub, iat, exp } = payload;
           // check if user is active or not
           // other user level checks from Payload
-      if (Number(user)) 
+      if (Number(user)) {
+        req['userid'] = user;
         next();
+      }
       else
         throw new HttpException(
           'Invalid Authorization Token',
