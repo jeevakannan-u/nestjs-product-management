@@ -20,17 +20,25 @@ export class JwtMiddleware implements NestMiddleware {
       throw new HttpException('No Authorization Token', HttpStatus.FORBIDDEN);
     
     let bearerToken = authorization.replace('Bearer ','');
-       
-    const payload = this.jwtService.verify(bearerToken, { secret: 'test'});
-    const { user,sub, iat, exp } = payload;
-        // check if user is active or not
-        // other user level checks from Payload
-    if (Number(user)) 
-      next();
-    else
+    let payload;
+    try {
+      payload = this.jwtService.verify(bearerToken, { secret: 'test'});
+      
+      const { user,sub, iat, exp } = payload;
+          // check if user is active or not
+          // other user level checks from Payload
+      if (Number(user)) 
+        next();
+      else
+        throw new HttpException(
+          'Invalid Authorization Token',
+          HttpStatus.FORBIDDEN,
+        );
+    } catch (error) {
       throw new HttpException(
-        'Invalid Authorization Token',
+        error.message,
         HttpStatus.FORBIDDEN,
       );
+    }
   }
 }
