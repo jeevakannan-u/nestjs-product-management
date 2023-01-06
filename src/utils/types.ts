@@ -15,7 +15,16 @@ export type CreateUserProfileParams = {
   dob: string;
 };
 
-export type CreateUserProductParams = {
+export type CreateProductParams = {
+  name: string;
+  price: number;
+  quantity: number;
+  active: boolean;
+};
+
+
+export type UpdateProductParams = {
+  id: number;
   name: string;
   price: number;
   quantity: number;

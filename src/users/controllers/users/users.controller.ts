@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from '../../dtos/CreateUser.dto';
-import { CreateUserProductDto } from '../../dtos/CreateUserProduct.dto';
 import { CreateUserProfileDto } from '../../dtos/CreateUserProfile.dto';
 import { UpdateUserDto } from '../../dtos/UpdateUser.dto';
 import { UsersService } from '../../services/users/users.service';
@@ -58,11 +57,4 @@ export class UsersController {
   }
 
  
-  @Post(':id/products')
-  createUserProduct(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() CreateUserProductDto: CreateUserProductDto,
-  ) {
-    return this.userService.createUserProduct(id, CreateUserProductDto);
-  }
 }

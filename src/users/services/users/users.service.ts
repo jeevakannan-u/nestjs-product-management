@@ -7,7 +7,6 @@ import { Profile } from '../../../typeorm/entities/Profile';
 import { User } from '../../../typeorm/entities/User';
 import {
   CreateUserParams,
-  CreateUserProductParams,
   CreateUserProfileParams,
   UpdateUserParams,
 } from '../../../utils/types';
@@ -16,8 +15,7 @@ import {
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
-    @InjectRepository(Profile) private profileRepository: Repository<Profile>,
-    @InjectRepository(Product) private productRepository: Repository<Product>,
+    @InjectRepository(Profile) private profileRepository: Repository<Profile>
   ) {}
 
   findUsers() {
@@ -62,20 +60,5 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  async createUserProduct(
-    id: number,
-    createUserProductDetails: CreateUserProductParams,
-  ) {
-    const user = await this.userRepository.findOneBy({ id });
-    if (!user)
-      throw new HttpException(
-        'User not found. Cannot create Profile',
-        HttpStatus.BAD_REQUEST,
-      );
-    const newProduct = this.productRepository.create({
-      ...createUserProductDetails,
-      user,
-    });
-    return this.productRepository.save(newProduct);
-  }
+ 
 }
